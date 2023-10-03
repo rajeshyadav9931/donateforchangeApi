@@ -25,7 +25,9 @@ postRouter.get("/", auth, async (req, res) => {
 
     try {
         const posts = await PostModel.find(query);
-        res.status(200).json(posts);
+        if (req.body.userId === posts.userId) {
+            res.status(200).json(posts);
+        }
     } catch (error) {
         res.status(400).json({ error: error });
     }
