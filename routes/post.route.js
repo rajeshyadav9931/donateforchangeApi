@@ -21,13 +21,11 @@ postRouter.post("/add", auth, async (req, res) => {
 
 
 postRouter.get("/", auth, async (req, res) => {
-    const query = req.query;
+
 
     try {
-        const posts = await PostModel.find(query);
-        if (req.body.userId === posts.userId) {
-            res.status(200).json(posts);
-        }
+        const posts = await PostModel.find({ "userId": req.body.userId });
+        res.status(200).json(posts);
     } catch (error) {
         res.status(400).json({ error: error });
     }
